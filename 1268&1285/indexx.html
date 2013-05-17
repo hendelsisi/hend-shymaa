@@ -1,0 +1,164 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Pixi Balls by Photon Storm</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0" />
+	<link rel="stylesheet" href="storm.css">	
+    
+	<script src="jquery-1.8.3.min.js"></script>
+	<script src="pixi.js"></script>
+</head>
+<body>
+
+	<a href="http://www.photonstorm.com"><img src="assets/photonstorm.png" width="121" height="18" id="photonstorm" title="Photon Storm" /></a>
+	<a href="http://www.html5gamedevs.com/topic/59-pixijs-has-landed/"><img src="assets/pixi.png" width="56" height="22" id="pixi" title="pixi.js" /></a>
+	<input type="button" id="rnd" value="Randomise" />
+	<div id="sx">SX: 0<br />SY: 0</div>
+
+<audio controls="controls" autoplay="autoplay" loop="loop">
+<source src="voicegame.wav" type="audio/mpeg">
+<source src="voicegame.ogg" type="audio/ogg">
+<embed height="50" width="100" src="voicegame.mp3">
+</audio>
+
+
+
+	<script>
+
+	
+
+	document.addEventListener('DOMContentLoaded', start, false);
+    
+     
+	
+	//create texture from jet image
+	var Ptexture = PIXI.Texture.fromImage("jet1.png");
+	var w = 1290;
+	var h = 700;
+	var starCount = 2500;
+	var sx = 1.0 + (Math.random() / 20);
+	var sy = 1.0 + (Math.random() / 20);
+    
+
+
+	var slideY = 3;
+	var stars = [];
+
+	function start() {
+    var enemy1=[];
+var enemy2=[];
+var enemy3=[];
+		var ballTexture = new PIXI.Texture.fromImage("assets/bubble_32x32.png");
+       var enemies = new PIXI.Texture.fromImage("eggHead.png");
+
+		
+		renderer = PIXI.autoDetectRenderer(w, h);
+
+		stage = new PIXI.Stage(0x6600FF);
+		
+		document.body.appendChild(renderer.view);
+        
+        
+
+//for (i=0;i<50;i++)
+i=0;
+{
+enemy[i]= new PIXI.Sprite(enemies);
+//enemy3[i].anchor.x = 0.2;
+//enemy3[i].anchor.y = 0.2;
+enemy3[i].position.x=130;
+enemy3[i].position.y-=300*i;
+stage.addChild(enemy3[i]);
+}
+      
+
+	
+		{
+        
+			var tempBall = new PIXI.Sprite(ballTexture);
+
+			tempBall.position.x =  w/6;
+			tempBall.position.y =  0;
+	
+
+			stars.push({ sprite: tempBall, x: tempBall.position.x, y: tempBall.position.y });
+
+			stage.addChild(tempBall);
+         
+		
+        }
+        
+
+	
+		document.getElementById('sx').innerHTML = 'SX: ' + sx + '<br />SY: ' + sy;
+		
+		requestAnimFrame(update);
+
+	}
+
+	
+
+		
+
+	
+
+	function update()
+	{
+		
+
+        i=0;
+		{
+			stars[i].sprite.position.x = stars[i].x ;
+			stars[i].sprite.position.y = stars[i].y ;
+			stars[i].x = stars[i].x ;
+			stars[i].y = stars[i].y -slideY;
+
+		
+			{
+				//stars[i].x = stars[i].x - w;
+			}
+
+			if (stars[i].y > h)
+			{
+				stars[i].y = stars[i].y - h;
+			}
+			else if (stars[i].y < -h)
+			{
+				stars[i].y = stars[i].y + h;
+			}
+		}
+		//call function to draw jet
+		DrawJet();
+		
+		renderer.render(stage);
+
+		requestAnimFrame(update);
+       
+
+	function DrawJet()
+		{
+			var Jet = new PIXI.Sprite(Ptexture);
+			Jet.position.x =400;
+			Jet.position.y =400;
+			//stage.addChild(Jet);
+		
+		
+		document.addEventListener('mousemove',mousemove,false);
+		
+		function mousemove(e){	
+			// if((jet.position.y > 0) && (jet.position.x > 0) && (jet.position.x < gameWidth) && (jet.position.y < gameHeight))
+			// {
+				Jet.position.x = e.screenX - 80;
+				Jet.position.y = e.screenY - 260;
+				stage.addChild(Jet);
+			//}
+			}	
+	}	
+	 
+}
+ 
+	</script>
+
+	</body>
+</html>
